@@ -1,0 +1,28 @@
+#include <Keypad.h> // подключаем библиотеку Keypad
+
+const byte ROWS = 4; // 4 строки
+const byte COLS = 4; // 4 столбца
+
+
+char hexaKeys[ROWS][COLS] = {// здесь мы располагаем названия наших клавиш, как на клавиатуре,для удобства пользования
+{'1','4','7','*'}, 
+{'2','5','8','0'},
+{'3','6','9','#'},
+{'A','B','C','D'}
+};
+byte colPins[COLS] = {4, 3, 2, 1}; // цифровые выводы строк 
+byte rowPins[ROWS] = {8, 7, 6, 5}; // цифровые выводы столбцов 
+// используем класс библиотеки
+Keypad customKeypad = Keypad(makeKeymap(hexaKeys), colPins, rowPins, COLS, ROWS);  
+
+void setup(){
+  Serial.begin(9600);
+}   
+
+void loop(){
+  // вывод в монитор порта значения кнопки
+  char customKey = customKeypad.getKey(); 
+  if (customKey){
+    Serial.println(customKey);
+  }
+}
